@@ -1,1 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Team Split Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <meta name="description" content="Calculate how many duos and solos in your Fortnite game instantly! Free and fast.">
+
+    <script>
+        function duos() {
+            let players = parseInt(document.getElementById("players").value);
+            let teams = parseInt(document.getElementById("teams").value);
+
+            let possibleDuos = players - teams;
+            let possibleSolos = teams - possibleDuos
+
+            let result = "";
+            if ((document.getElementById("players").value == "" || document.getElementById("teams").value == "")) {
+                alert("Please enter values for both fields.");
+            }
+            else if (possibleDuos < 0 || possibleSolos < 0) {
+                alert("ERROR HAS OCCURED PLEASE DOUBLE CHECK VALUES");
+            }
+            else {
+                document.getElementById("duos").innerHTML = possibleDuos;
+                document.getElementById("solos").innerHTML = possibleSolos;
+
+                document.getElementById("resultD").style.transform = 'translateX(0)';
+                document.getElementById("resultS").style.transform = 'translateX(0)';
+                document.getElementById("solos").style.display = 'auto';
+            }
+        }
+        function reset() {
+            document.getElementById("players").value = "";
+            document.getElementById("teams").value = "";
+            document.getElementById("duos").innerHTML = "RESULTS PENDING";
+            document.getElementById("solos").innerHTML = "RESULTS PENDING";
+            document.getElementById("resultD").style.transform = 'translateX(-100vw)';
+            document.getElementById("resultS").style.transform = 'translateX(100vw)';
+            document.getElementById("resultS").style.display = 'none';
+        }
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Enter") {
+                duos();
+            }
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            if (e.touches.length === 1) { // single finger
+                // if horizontal movement is bigger than vertical, block it
+                const touch = e.touches[0];
+                if (Math.abs(touch.clientX - touch.startX) > Math.abs(touch.clientY - touch.startY)) {
+                    e.preventDefault(); 
+                }
+            }   
+        }, { passive: false });
+
+    </script>
+</head>
+
+<body>
+    <center>
+        <h1 id='header'>CALCULATE HOW MANY DUOS/SOLOS</h1>
+    </center>
+
+    <center>
+        <div id="outter">
+            <h2>Enter # of Players: </h2>
+            <input type="number" id="players" placeholder="Players" min="0" max="100">
+        </div>
+
+        <div id="outter">
+            <h2>Enter # of Teams: </h2>
+            <input type="number" id="teams" placeholder="Teams" min="0" max="100">
+        </div>
+
+
+        <div id=>
+            <button class="Done" onclick="duos()">Calculate</button>
+        </div>
+
+
+        <div id="resultD">
+            <div>DUOS: </div>
+            <div id="duos">RESULTS PENDING</div>
+        </div>
+
+        <div id="resultS">
+            <div>SOLOS: </div>
+            <div id="solos">RESULTS PENDING</div>
+        </div>
+    </center>
+
+    <!-- reset button below -->
+    <div>
+        <button class="reset" onclick="reset()">RESET</button>
+    </div>
+
+
+
+    <footer id="optionButtons">
+        <center>
+            <div>&copy; Aayush N. | v1. 2025 | <a href="https://forms.gle/j36nmMGqSYRm7Y3M9">Send Feedback</a></div>
+        </center>
+    </footer>
+
+
+</body>
+
+</html>
 
